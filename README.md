@@ -8,7 +8,7 @@ IITK Global Case Competition 2025 — Technical Research Repository
 
 ## What this is
 
-FinMind OS is a decision-support system that computes three scores simultaneously before any trade is confirmed — Financial Readiness (FRS), Emotional Risk (ERS), and Goal Alignment (GAS). It then uses a language model to generate a personalised intervention message anchored to the user's actual numbers, not generic financial advice.
+FinMind OS is a decision-support system that computes three scores simultaneously before any trade is confirmed Financial Readiness (FRS), Emotional Risk (ERS), and Goal Alignment (GAS). It then uses a language model to generate a personalised intervention message anchored to the user's actual numbers, not generic financial advice.
 
 The core insight: a trade is not just a financial event. It is the intersection of your market knowledge, your current financial health, and your psychological state at that exact moment. No existing platform measures all three simultaneously.
 
@@ -17,7 +17,7 @@ The core insight: a trade is not just a financial event. It is the intersection 
 ## Repository structure
 
 ```
-finmind-os/
+IITK_CASE
 │
 ├── Project_Notebook.ipynb          # Main research notebook — run this
 │
@@ -61,7 +61,7 @@ The notebook will prompt you to enter your API key interactively if the environm
 ## What the notebook covers
 
 **Part 1 — VIX backtest**
-Downloads India VIX and Nifty 50 data from 2015 to 2024 via yfinance. Classifies every trading day as Calm, Anxious, or Panic using rolling percentile thresholds — no lookahead bias. Computes average 10-day forward returns for each state and generates two charts for the presentation.
+Downloads India VIX and Nifty 50 data from 2015 to 2024 via yfinance. Classifies every trading day as Calm, Anxious, or Panic using rolling percentile thresholds no lookahead bias. Computes average 10-day forward returns for each state and generates two charts for the presentation.
 
 **Part 2 — 3-score engine**
 Implements the FRS, ERS, and GAS formulas as a Python class. Runs two contrasting scenarios — Rahul (panic sell at 2am, low FRS, very high ERS) and Priya (calm deliberate investment, strong scores across all three). Generates gauge dashboard visuals.
@@ -70,7 +70,7 @@ Implements the FRS, ERS, and GAS formulas as a Python class. Runs two contrastin
 Calls Groq API with Llama 3.1-8b-instant. System prompt forces exactly 3 sentences, each anchored to the user's real numbers. Demonstrates two scenarios — panic sell and FOMO buy.
 
 **Part 4 — Survey analysis**
-Reads the Google Form response Excel file directly. Computes real bias percentages from 54 respondents. Generates bias chart and survey results chart with actual data — no placeholder values.
+Reads the Google Form response Excel file directly. Computes real bias percentages from 54 respondents. Generates bias chart and survey results chart with actual data no placeholder values.
 
 **Part 5 — Trade recommendation engine**
 Pulls live market data via yfinance for a curated universe of Indian stocks. Selects a risk tier based on the user's three scores. Recommends what to buy, how much to deploy, and why — with the same contrast between calm and stressed scenarios.
@@ -89,7 +89,7 @@ GAS = (ProjectedCorpus/Target × 60) + ImpactRatio × 40
 Verdict = FRS × 0.35 + (100 − ERS) × 0.35 + GAS × 0.30
 ```
 
-Scores are risk bands, not precise measurements. Emotions are noisy and proxies can misfire. The system informs — it never blocks a trade.
+Scores are risk bands, not precise measurements. Emotions are noisy and proxies can misfire. The system informs it never blocks a trade.
 
 ---
 
@@ -145,7 +145,7 @@ Key findings used in the analysis:
 - 75.9% found the FinMind OS intervention concept helpful or somewhat helpful
 - 56% had invested purely because of social media or friends buzzing about a stock
 
-The notebook reads this file directly and computes all chart values from real responses — nothing is hardcoded.
+The notebook reads this file directly and computes all chart values from real responses nothing is hardcoded.
 
 ---
 
@@ -158,20 +158,6 @@ The notebook reads this file directly and computes all chart values from real re
 | Groq API | Llama 3.1-8b-instant inference | Free tier available |
 | Google Forms | Primary survey responses | Our own data |
 
----
-
-## Key finding
-
-Markets recover an average **+0.87%** in the 10 trading days following high-VIX panic spikes (2015–2024 backtest). Investors who panic-sell on those days forfeit the entire recovery. FinMind OS exists to interrupt the 30-second window between panic and execution.
-
----
-
-## Limitations
-
-- ERS uses behavioral proxies, not direct emotion measurement — signals can misfire on experienced traders
-- Rolling VIX percentiles are stable after ~60 trading days of history; early classifications have limited basis
-- The GAS formula uses a standard SIP future value model — actual market returns will vary
-- LLM outputs are non-deterministic — intervention wording will vary across runs
 
 ---
 
